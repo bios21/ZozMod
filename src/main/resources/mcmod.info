@@ -5,12 +5,12 @@
         "description": "Testing for 1.8",
         "version": "${version}",
         "mcversion": "${mcversion}",
-        "url": "https://github.com/bios21/",
+        "url": "https://github.com/bios21/ZozMod",
         "updateUrl": "",
         "authorList": [
             "bios21"
         ],
-        "credits": "DIDI",
+        "credits": "",
         "logoFile": "",
         "screenshots": [],
         "dependencies": []
