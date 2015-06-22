@@ -22,7 +22,7 @@ group= "com.bios21.zozmod" // http://maven.apache.org/guides/mini/guide-naming-c
 archivesBaseName = "ZozMod"
 
 minecraft {
-    version = "1.8-11.14.3.1450"
+    version = "1.8-11.14.3.1474"
     runDir = "eclipse"
     
     // the mappings can be changed at any time, and must be in the following format.
