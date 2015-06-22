@@ -24,6 +24,7 @@ public class ZozEventHandler {
 
             if (stack != null && !entity.isDead && ZozUtils.isOreDictionnaryEqual(stack, IRON_INGOT)) {
                 ((EntityItem)entity).setEntityItemStack(new ItemStack(ZozItems.chargedIronIngot, stack.stackSize, stack.getItemDamage()));
+                event.setCanceled(true);
             }
         }
     }
