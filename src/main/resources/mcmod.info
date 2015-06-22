@@ -1,0 +1,18 @@
+[
+    {
+        "modid": "ZozMod",
+        "name": "ZOZ",
+        "description": "Testing for 1.8",
+        "version": "${version}",
+        "mcversion": "${mcversion}",
+        "url": "https://github.com/bios21/",
+        "updateUrl": "",
+        "authorList": [
+            "bios21"
+        ],
+        "credits": "DIDI",
+        "logoFile": "",
+        "screenshots": [],
+        "dependencies": []
+    }
+]

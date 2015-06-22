@@ -1,0 +1,4 @@
+item.zozmod:charged_iron_ingot.name=Charged Iron Ingot
+tile.zozmod:charged_iron_block.name=Charged Iron Block
+tile.zozmod:lightning_rod.name=Lightning Rod
+itemGroup.Zoz=The Zoz Mod
