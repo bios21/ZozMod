@@ -16,7 +16,6 @@ import java.util.Random;
  * Created by Asus on 21/06/2015.
  */
 public class BlockLightningRod extends BaseBlockZoz implements ITileEntityProvider {
-
     public BlockLightningRod() {
         super(Material.iron, Reference.Blocks.lightningRod);
         this.setUnlocalizedName(Reference.Blocks.lightningRod);
@@ -41,7 +40,7 @@ public class BlockLightningRod extends BaseBlockZoz implements ITileEntityProvid
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createNewTileEntity(final World worldIn, final int meta) {
         return new TileLightningRod();
     }
 

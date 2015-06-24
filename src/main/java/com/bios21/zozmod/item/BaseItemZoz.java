@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 /**
  * Created by Asus on 20/06/2015.
  */
-public class BaseItemZoz extends Item implements IBlockItem {
+public abstract class BaseItemZoz extends Item implements IBlockItem {
     private String name;
 
     public BaseItemZoz(final String name) {

@@ -10,4 +10,5 @@ gradle-app.setting
 !gradle-wrapper.jar
 eclipse/*
 !eclipse/.metadata
-
+bin
+eclipse

@@ -5,6 +5,7 @@ import com.bios21.zozmod.handler.ZozEventHandler;
 import com.bios21.zozmod.init.ZozBlocks;
 import com.bios21.zozmod.init.ZozItems;
 import com.bios21.zozmod.init.ZozRecipes;
+import com.bios21.zozmod.init.ZozTileEntities;
 import com.bios21.zozmod.proxy.IProxy;
 import com.bios21.zozmod.reference.Reference;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -43,6 +44,7 @@ public class ZozMod {
         proxy.init(event);
         ZozItems.init();
         ZozBlocks.init();
+        ZozTileEntities.init();
         ZozRecipes.init();
     }
 
