@@ -21,15 +21,62 @@ public class AnimationInfo implements Serializable {
         }
     }
 
+    /**
+     * Animation Name
+     */
     private String name = "";
+    /**
+     * Array or range. In array, all values are used.
+     * In range, [n - 2(or 3)] values between the two steps are generated
+     */
     private EnumAnimationMode mode = EnumAnimationMode.ARRAY;
-    private boolean mirror = false;
+    /**
+     * When direct and range, only two steps are used (so, one modifier array)
+     */
+    private boolean direct = false;
+    /**
+     * Number of frames
+     */
     private int size = 0;
+    /**
+     * Frame per second
+     */
     private int fps = 0;
+    /**
+     * Animation is looping or linear
+     */
     private boolean loop = false;
+    /**
+     * Rotations values [x][y][z][angle]
+     * e.g.:
+     * [0.0, 0.0, 0.0, 1.0],
+     * [0.0, 1.0, 0.0, 0.0],
+     * [0.0, 0.0, 0.0, 1.0]
+     *
+     * One line when no rotation
+     * Two lines on range direct
+     * Three lines on range with step
+     * N lines on array
+     */
     private float[][] rotations;
+    /**
+     * Translations values [x][y][z]
+     * e.g.:
+     * [0.0, -16.0, 2.0]
+     *
+     * One line when no translation
+     * Two lines on range direct
+     * Three lines on range with step
+     * N lines on array
+     */
     private float [][] translations;
+    /**
+     * KeyFrames generated from arrays
+     */
     private Map<Integer, KeyFrame> keyFrames;
+
+    // when range mode
+
 
     public AnimationInfo() {
         switch (this.mode) {
@@ -112,12 +159,12 @@ public class AnimationInfo implements Serializable {
         this.loop = loop;
     }
 
-    public boolean isMirror() {
-        return mirror;
+    public boolean isDirect() {
+        return direct;
     }
 
-    public void setMirror(boolean mirror) {
-        this.mirror = mirror;
+    public void setDirect(boolean direct) {
+        this.direct = direct;
     }
 
     public EnumAnimationMode getMode() {

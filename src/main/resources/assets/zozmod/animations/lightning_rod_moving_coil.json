@@ -1,6 +1,6 @@
 {
   "mode": "range",
-  "mirror": false,
+  "direct": false,
   "size": 40,
   "fps": 12,
   "loop": true,

@@ -3,6 +3,7 @@ package com.bios21.zozmod.tileentity;
 import com.bios21.zozmod.animations.LightningRod.AnimationHandlerLightningRod;
 import com.bios21.zozmod.lib.MCACommonLibray.IMCAnimatedEntity;
 import com.bios21.zozmod.lib.MCACommonLibray.animation.AnimationHandler;
+import com.bios21.zozmod.reference.Reference;
 import com.bios21.zozmod.utils.ZozLog;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 
@@ -24,8 +25,8 @@ public class TileLightningRod extends BaseTileEntityZoz implements IMCAnimatedEn
 
     @Override
     public void update() {
-        if (!this.animHandler.isAnimationActive(AnimationHandlerLightningRod.MOVING_COIL_ROTATION_ANIMATION)) {
-            this.animHandler.activateAnimation(AnimationHandlerLightningRod.MOVING_COIL_ROTATION_ANIMATION, 0);
+        if (!this.animHandler.isAnimationActive(Reference.Animations.lightningRodMovingCoil)) {
+            this.animHandler.activateAnimation(Reference.Animations.lightningRodMovingCoil, 0);
         }
     }
 }
