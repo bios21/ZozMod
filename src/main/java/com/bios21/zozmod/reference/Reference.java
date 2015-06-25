@@ -23,4 +23,8 @@ public class Reference {
         public static final String chargedIronBlock = "charged_iron_block";
         public static final String lightningRod = "lightning_rod";
     }
+
+    public static final class Animations {
+        public static final String lightningRodMovingCoil = "lightning_rod_moving_coil";
+    }
 }

@@ -3,19 +3,21 @@ package com.bios21.zozmod.animations.LightningRod;
 import com.bios21.zozmod.lib.MCACommonLibray.IMCAnimatedEntity;
 import com.bios21.zozmod.lib.MCACommonLibray.animation.AnimationHandler;
 import com.bios21.zozmod.lib.MCACommonLibray.animation.Channel;
+import com.bios21.zozmod.reference.Reference;
+import net.minecraft.util.ResourceLocation;
 
 import java.util.HashMap;
 
 
 public class AnimationHandlerLightningRod extends AnimationHandler {
-    public static final String MOVING_COIL_ROTATION_ANIMATION = "MovingCoilRotation";
+    private static final ResourceLocation lightningRodMovingCoilAnimationJSON = new ResourceLocation("zozmod:animations/"+ Reference.Animations.lightningRodMovingCoil+".json");
     /**
      * Map with all the animations.
      */
     public static HashMap<String, Channel> animChannels = new HashMap<String, Channel>();
 
     static {
-        animChannels.put(MOVING_COIL_ROTATION_ANIMATION, new ChannelMovingCoilRotation(MOVING_COIL_ROTATION_ANIMATION, 7.0F, 24, Channel.LOOP));
+        animChannels.put(Reference.Animations.lightningRodMovingCoil, new ChannelMovingCoilRotation(Reference.Animations.lightningRodMovingCoil, 7.0F, 24, Channel.LOOP));
     }
 
     public AnimationHandlerLightningRod(IMCAnimatedEntity entity) {
