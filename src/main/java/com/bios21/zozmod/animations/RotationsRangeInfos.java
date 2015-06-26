@@ -22,4 +22,28 @@ public class RotationsRangeInfos extends RangeInfos {
         final int[] idx = {0};
         Arrays.stream(steps).forEachOrdered(step -> this.thenSteps.put(valueNames[idx[0]++], step));
     }
+
+    @Override
+    public EnumRangeStep[] getFirstStepsAsArray() {
+        EnumRangeStep[] ret = {
+                this.firstSteps.get("x"),
+                this.firstSteps.get("y"),
+                this.firstSteps.get("z"),
+                this.firstSteps.get("w")
+        };
+
+        return ret;
+    }
+
+    @Override
+    public EnumRangeStep[] getThenStepsAsArray() {
+        EnumRangeStep[] ret = {
+                this.thenSteps.get("x"),
+                this.thenSteps.get("y"),
+                this.thenSteps.get("z"),
+                this.thenSteps.get("w")
+        };
+
+        return ret;
+    }
 }

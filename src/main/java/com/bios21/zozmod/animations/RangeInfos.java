@@ -27,4 +27,8 @@ public abstract class RangeInfos {
             this.thenSteps.put(i, EnumRangeStep.STILL);
         });
     }
+
+    public abstract EnumRangeStep[] getFirstStepsAsArray();
+
+    public abstract EnumRangeStep[] getThenStepsAsArray();
 }

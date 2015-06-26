@@ -4,8 +4,11 @@ import com.bios21.zozmod.lib.MCACommonLibray.animation.KeyFrame;
 import com.bios21.zozmod.lib.MCACommonLibray.math.Quaternion;
 import com.bios21.zozmod.lib.MCACommonLibray.math.Vector3f;
 import com.bios21.zozmod.utils.ZozUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -76,8 +79,8 @@ public class AnimationInfo implements Serializable {
     private Map<Integer, KeyFrame> keyFrames;
 
     // when range mode
-    private RangeInfos rotationsRangeInfos;
-    private RangeInfos translationsRangeInfos;
+    private RotationsRangeInfos rotationsRangeInfos;
+    private TranslationsRangeInfos translationsRangeInfos;
 
     public AnimationInfo() {
         switch (this.mode) {
@@ -101,7 +104,7 @@ public class AnimationInfo implements Serializable {
 
         KeyFrame frame = new KeyFrame();
         for (int i = 0; i < this.size; i++) {
-            frame.modelRenderersRotations.put(this.name, new Quaternion(this.rotations[i][0], this.rotations[i][1], this.rotations[i][2], this.rotations[i][3])); //15
+            frame.modelRenderersRotations.put(this.name, new Quaternion(this.rotations[i][0], this.rotations[i][1], this.rotations[i][2], this.rotations[i][3]));
             frame.modelRenderersTranslations.put(this.name, new Vector3f(this.translations[i][0], this.translations[i][1], this.translations[i][2]));
             keyFrames.put(i, frame);
             frame = new KeyFrame();
@@ -111,6 +114,7 @@ public class AnimationInfo implements Serializable {
     private void generateKeyFramesFromRange() {
         int middle = (int) Math.floor(this.size/2);
         int tier = Math.max(this.rotations.length, this.rotations.length);
+        if (tier > 3) return;
 
         Quaternion quaternionRotationUnique = null;
         Vector3f vector3fTranslationUnique = null;
@@ -121,19 +125,71 @@ public class AnimationInfo implements Serializable {
             vector3fTranslationUnique = new Vector3f(this.translations[0][0], this.translations[0][1], this.translations[0][2]);
         }
 
+        float[][] newRotations = (tier == 2
+                ? handle2TiersRange(this.rotations[0], this.rotations[1], true, true, this.size)
+                : handle3TiersRange(this.rotations[0], this.rotations[1], this.rotations[2], true, middle));
+        float[][] newTranslations = (tier == 2
+                ? handle2TiersRange(this.translations[0], this.translations[1], false, true, this.size)
+                : handle3TiersRange(this.translations[0], this.translations[1], this.translations[2], false, middle));
         KeyFrame frame = new KeyFrame();
         for (int i = 0; i < this.size; i++) {
             if (quaternionRotationUnique != null) {
                 frame.modelRenderersRotations.put(this.name, quaternionRotationUnique);
             } else {
-                float x = this.rotations[i][0];
-                float y = this.rotations[i][1];
-                float z = this.rotations[i][2];
-                float w = this.rotations[i][3];
+                frame.modelRenderersRotations.put(this.name, new Quaternion(newRotations[i][0], newRotations[i][1], newRotations[i][2], newRotations[i][3]));
+            }
 
+            if (vector3fTranslationUnique != null) {
+                frame.modelRenderersTranslations.put(this.name, vector3fTranslationUnique);
+            } else {
+                frame.modelRenderersTranslations.put(this.name, new Vector3f(newTranslations[i][0], newTranslations[i][1], newTranslations[i][2]));
+            }
+            keyFrames.put(i, frame);
+            frame = new KeyFrame();
+        }
+
+    }
+
+    private float[][] handle2TiersRange(float[] tierA, float[] tierB, boolean rotations, boolean first, int tierSize) {
+        int iRot = (rotations ? 4 : 3);
+        List<Float> dividedSteps = new ArrayList<>(iRot);
+        dividedSteps.add(Math.abs(tierB[0] - tierA[0]) / tierSize);
+        dividedSteps.add(Math.abs(tierB[1] - tierA[1]) / tierSize);
+        dividedSteps.add(Math.abs(tierB[2] - tierA[2]) / tierSize);
+        if (rotations) {
+            dividedSteps.add(Math.abs(tierB[3] - tierA[3]) / tierSize);
+        }
+        RangeInfos rangeInfos = (rotations ? this.rotationsRangeInfos : this.translationsRangeInfos);
+        RangeInfos.EnumRangeStep[] rangeSteps = (first ? rangeInfos.getFirstStepsAsArray() : rangeInfos.getThenStepsAsArray());
+
+        float[][] temp = new float[tierSize][iRot];
+        for(int i = 0; i < iRot; i++) {
+            float previous = tierA[i];
+            for(int j = 1; j < tierSize; j++) {
+                switch (rangeSteps[i]) {
+                    case DECREASE:
+                        temp[j][i] = previous - dividedSteps.get(i);
+                        break;
+                    case INCREASE:
+                        temp[j][i] = previous + dividedSteps.get(i);
+                        break;
+                    case STILL:
+                    default:
+                        temp[j][i] = previous;
+                        break;
+                }
+                previous = temp[j][i];
             }
         }
 
+        return temp;
+    }
+
+    private float[][] handle3TiersRange(float[] tierA, float[] tierB, float[] tierC, boolean rotations, int middle) {
+        return ArrayUtils.addAll(
+                handle2TiersRange(tierA, tierB, rotations, true, middle),
+                handle2TiersRange(tierB, tierC, rotations, false, this.size-middle)
+        );
     }
 
     public String getName() {
