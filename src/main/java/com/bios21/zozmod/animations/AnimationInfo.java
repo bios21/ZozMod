@@ -76,7 +76,8 @@ public class AnimationInfo implements Serializable {
     private Map<Integer, KeyFrame> keyFrames;
 
     // when range mode
-
+    private RangeInfos rotationsRangeInfos;
+    private RangeInfos translationsRangeInfos;
 
     public AnimationInfo() {
         switch (this.mode) {
